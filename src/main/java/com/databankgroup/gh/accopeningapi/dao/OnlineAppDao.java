@@ -23,7 +23,7 @@ public class OnlineAppDao implements IOnlineAppDao {
 	
 
 	@Override
-	@Transactional( propagation = Propagation.REQUIRED)
+
 	
 	public void store(AppBean appBean) {
 		if (appBean.getApplicationRef() == null) {
@@ -42,7 +42,7 @@ public class OnlineAppDao implements IOnlineAppDao {
 	}
 
 	@Override
-	
+	@Transactional
 	public AppBean findById(Long id) {
 		Query q = this.entityManager.createQuery("select a from AppBean a where a.id=:id");
 		q.setParameter("id", id);

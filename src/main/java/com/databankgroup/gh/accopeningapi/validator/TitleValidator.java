@@ -2,16 +2,26 @@ package com.databankgroup.gh.accopeningapi.validator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TitleValidator implements ConstraintValidator<TitleCheck, String> {
+
+   private List<String> validTitles = new ArrayList<String>();
    public void initialize(TitleCheck constraint) {
+      validTitles.add("Mr");
+      validTitles.add("Miss");
+      validTitles.add("Mrs");
+      validTitles.add("Dr");
+      validTitles.add("Prof");
    }
 
    public boolean isValid(String obj, ConstraintValidatorContext context) {
 
 
-      if (obj == null || (!obj.contains("Mr")) || (!obj.contains("Miss")) || (!obj.contains("Mrs")) || (!obj.contains("Dr")) || (!obj.contains("Prof")))
+      return validTitles.contains(obj);
 
-         return false; else return true;
+
+
    }
 }

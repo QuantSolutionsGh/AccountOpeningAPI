@@ -5,6 +5,7 @@ import com.databankgroup.gh.accopeningapi.validator.SecondApplicantDetailsCheck;
 import com.databankgroup.gh.accopeningapi.validator.TitleCheck;
 import org.hibernate.validator.constraints.ScriptAssert;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -29,7 +30,7 @@ import java.util.Set;
 })
 public class AppBean implements Serializable {
 
-	
+
 	private static final long serialVersionUID = -4221045095101467108L;
 
 	@Id
@@ -38,136 +39,152 @@ public class AppBean implements Serializable {
 
 	@Version
 	private Long version;
-	
+
+	@Transient
+	@NotNull
+	private MultipartFile passportImage;
+
+	@Transient
+	@NotNull
+	private MultipartFile signatureImage;
+
+	@Transient
+	@NotNull
+	private MultipartFile photoIDImage;
+
+	@Transient
+	@NotNull
+	private MultipartFile proofOfAddressImage;
+
 	@Column
 	@NotNull
 
 	@Size(min=2, message="last name should have at least 2 characters")
 	private String lastName;
-	
+
 	@Column
 	private boolean onlineServiceApplicant;
-	
+
 	@Column
 	@NotNull
 	@Size(min=2, message="first name should have at least 2 characters")
 	private String firstName;
-	
+
 	@Column
 
 	private String middleName;
-	
+
 	@Column
 	@NotNull
 	@Email
 	private String email;
-	
+
 	@Column
 	private String confirmEmail;
-	
+
 	@Column
 	@NotNull(message="phone number should not be null")
 	private String phoneNumber;
-	
+
 	@Column
 
 	@AccountType
 	private String accountType;
-	
+
 	@Column
 	@TitleCheck
 	private String title;
-	
+
 	@Column
 
 	private String gender;
-	
-	
+
+
 	@Column
 	private String otherNames;
-	
+
 	@Column
-	private String residentialPhone;	
-	
-	
+	private String residentialPhone;
+
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@NotNull(message="Date of birth is required")
 	private Date dob;
-	
+
 	@Column
 	@NotNull
 	private String country;
-	
+
 	@Column
 	@NotNull
-	private String state;	
-	
+	private String state;
+
 	@Column
 	@NotNull(message="Country's iso Alpha Code is required")
 	private String countryOfResidence; //use this to store country isoAlpha2Code
-	
+
 	@Column
 	@NotNull
 	private String nationality;
-	
-	
+
+
 	@Column
 	@NotNull
 	private String occupation;
-	
+
 	@Column
 	private String employerName;
-	
+
 	@Column
 	private String levelOfEducation;
-	
+
 	@Column
 	private String photoId;
-	
+
 	@Column
 	@NotNull
 	private String idNumber;
-	
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date idExpiryDate;
-	
-	
+
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dateFormCompleted;
-	
-	
+
+
 	@Column
 	private String mothersMaidenName;
-	
+
 	@Column
-	
+
 	private String annualIncome;
-	
+
 	@Column
-	
+
 	private String otherIncomeSources;
-	
+
 	@Column
 	private String channel;
-	
+
 	@Column
 	private String q1;
-	
+
 	@Column
 	private String q2;
-	
+
 	@Column
 	private String q3;
-	
+
 	@Column
 	private String q4;
-	
+
 	@Column
 	private String q5;
 	@Column
@@ -194,228 +211,260 @@ public class AppBean implements Serializable {
 	private double ben2Allocation;
 	@Column
 	private double ben3Allocation;
-	
+
 	@Column
 	@NotNull
 	private String nextOfKinSurname;
-	
+
 	@Column
 	@NotNull
 	private String nextOfKinFirstname;
-	
+
 	@Column
 	@NotNull
 	private String nextOfKinCountry;
-	
+
 	@Column
 	@NotNull
 
 	private String nextOfKinState;
-	
+
 	@Column
 
 	private String nextOfKinEmail;
-	
+
 	@Column
 	@NotNull
 	private String nextOfKinPhoneNumber;
-	
+
 	@Column
 	private String itfSurname;
-	
+
 	@Column
 	private String itfFirstname;
-	
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date itfDob;
-	
+
 	@Column
 	private String itfPhotoID;
-	
+
 	@Column
 	private String itfIdNumber;
-	
+
 	@Column
 	private String lastName2;
-	
+
 	@Column
 	private String firstName2;
-	
+
 	@Column
 	private String middleName2;
-	
+
 	@Column
 	private String email2;
-	
+
 	@Column
 	private String confirmEmail2;
-	
+
 	@Column
 	private String phoneNumber2;
-	
+
 	@Column
 	private String accountType2;
-	
+
 	@Column
 	private String title2;
-	
+
 	@Column
 	private String gender2;
-	
-	
+
+
 	@Column
 	private String otherNames2;
-	
+
 	@Column
-	private String residentialPhone2;	
-	
-	
+	private String residentialPhone2;
+
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dob2;
-	
+
 	@Column
 	private String country2;
-	
+
 	@Column
-	private String state2;	
-	
+	private String state2;
+
 	@Column
 	private String nationality2;
-	
+
 	@Column
 	private String countryOfResidence2;
-	
+
 	@Column
-	
+
 	private String occupation2;
-	
+
 	@Column
 	private String employerName2;
-	
+
 	@Column
 	private String levelOfEducation2;
-	
+
 	@Column
 	private String photoId2;
-	
+
 	@Column
 	private String idNumber2;
-	
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date idExpiryDate2;
-	
+
 	@Column
 	private String mothersMaidenName2;
-	
+
 	@Column
 	private String annualIncome2;
-	
+
 	@Column
 	private String otherIncomeSources2;
-	
+
 	@Column
 	private String passportFile;
-	
+
 	@Column
 	private String sigFile;
-	
+
 	@Column
 	private String validIDFile;
-	
+
 	@Column
 	private String applicationRef;
-	
-	
+
+
 	@Transient
 	private boolean tcChecked=false;  //terms and conditions checked??
-	
+
 	@Transient
 	private String signature;
-	
-	
+
+
 	@Column
 	private String userName;
-	
-	
+
+
 	@Column
 	private String password;
-	
+
 	@Transient
 	private String confirmPassword;
-	
-		
+
+
 	@Column
 	private int salt;
-	
-	
+
+
 	@Column
 	private String secretQuestion;
-	
+
 	@Column
 	private String secretAnswer;
-	
+
 	@Column
 	private boolean formCompleted;
-	
+
 	@Column
-	private String docRef;	
-	
-	
+	private String docRef;
+
+
 	@Column
-	private String accountNumber;	
-	
+	private String accountNumber;
+
 	@Column
 	private String maritalStatus1;
-	
+
 	@Column
 	private String maritalStatus2;
-	
+
 	@Column
 	@NotNull
 	private String postalAddress1;
-	
+
 	@Column
 	private String postalAddress2;
-	
+
 	@Column
 	private String city1;
-	
+
 	@Column
 	private String city2;
-	
+
 	@Column
-	private String confirmationToken;	
-	
+	private String confirmationToken;
+
 	@Column
-	private boolean emailVerified;	
-	
-	
+	private boolean emailVerified;
+
+
 	@Column
 	private String riskProfile;
-	
-	@OneToMany(mappedBy = "appBean", cascade = CascadeType.ALL)
-    private Set<UserDocument> userDocuments = new HashSet<UserDocument>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    public AppBeanVitals appBeanVitals;
+	@OneToMany(targetEntity = UserDocument.class,cascade = CascadeType.ALL,fetch= FetchType.LAZY)
+	@JoinColumn(name="appbean")
+
+	private Set<UserDocument> userDocuments = new HashSet<UserDocument>();
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	public AppBeanVitals appBeanVitals;
 
 
 
 	@Transient
-    private String fullName1;  //to be used for signature on t&C page
+	private String fullName1;  //to be used for signature on t&C page
 
 	@Transient
-    private String fullName2;   //to be used for signature on t&C page for joint applicant2
-	
-	
-	
+	private String fullName2;   //to be used for signature on t&C page for joint applicant2
+
+	public MultipartFile getPassportImage() {
+		return passportImage;
+	}
+
+	public void setPassportImage(MultipartFile passportImage) {
+		this.passportImage = passportImage;
+	}
+
+	public MultipartFile getSignatureImage() {
+		return signatureImage;
+	}
+
+	public void setSignatureImage(MultipartFile signatureImage) {
+		this.signatureImage = signatureImage;
+	}
+
+	public MultipartFile getPhotoIDImage() {
+		return photoIDImage;
+	}
+
+	public void setPhotoIDImage(MultipartFile photoIDImage) {
+		this.photoIDImage = photoIDImage;
+	}
+
+	public MultipartFile getProofOfAddressImage() {
+		return proofOfAddressImage;
+	}
+
+	public void setProofOfAddressImage(MultipartFile proofOfAddressImage) {
+		this.proofOfAddressImage = proofOfAddressImage;
+	}
+
 	public String getRiskProfile() {
 		return riskProfile;
 	}
@@ -966,7 +1015,7 @@ public class AppBean implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-		
+
 	}
 
 	public String getFirstName() {
@@ -1281,27 +1330,29 @@ public class AppBean implements Serializable {
 		this.signature = signature;
 	}
 
-    public String getFullName1() {
-        return fullName1;
-    }
+	public String getFullName1() {
+		return fullName1;
+	}
 
-    public void setFullName1(String fullName1) {
-        this.fullName1 = fullName1;
-    }
+	public void setFullName1(String fullName1) {
+		this.fullName1 = fullName1;
+	}
 
-    public String getFullName2() {
-        return fullName2;
-    }
+	public String getFullName2() {
+		return fullName2;
+	}
 
-    public void setFullName2(String fullName2) {
-        this.fullName2 = fullName2;
-    }
+	public void setFullName2(String fullName2) {
+		this.fullName2 = fullName2;
+	}
 
-    public AppBeanVitals getAppBeanVitals() {
-        return appBeanVitals;
-    }
+	public AppBeanVitals getAppBeanVitals() {
+		return appBeanVitals;
+	}
 
-    public void setAppBeanVitals(AppBeanVitals appBeanVitals) {
-        this.appBeanVitals = appBeanVitals;
-    }
+	public void setAppBeanVitals(AppBeanVitals appBeanVitals) {
+		this.appBeanVitals = appBeanVitals;
+	}
+
+
 }

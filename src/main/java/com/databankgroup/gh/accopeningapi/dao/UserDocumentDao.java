@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Repository
 @Transactional
@@ -54,6 +56,15 @@ public class UserDocumentDao implements IUserDocumentDao {
 		ArrayList<UserDocument> al = (ArrayList<UserDocument>) q.getResultList();
 
 		return al;
+	}
+
+
+	@Override
+	public Set<UserDocument> findAll(Long id) {
+		Query q= this.entityManager.createQuery("select a from UserDocument a where a.appBean.id=:id");
+		q.setParameter("id",id);
+		return new HashSet<UserDocument>(q.getResultList());
+
 	}
 
 	@Override

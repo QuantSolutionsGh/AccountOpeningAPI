@@ -27,7 +27,11 @@ public class SecondApplicantDetailsValidator implements ConstraintValidator<Seco
       try {
          final String accountType = BeanUtils.getProperty(obj,firstFieldName);  //get account type value
          final String field2 = BeanUtils.getProperty(obj,secondFieldName); //get 2nd application field to check null
-         valid= (accountType.contains("Joint") && (field2!=null));
+
+         if ((accountType.contains("Joint")) && (field2==null)){
+            valid=false;
+         }
+
 
 
       } catch (Exception ignore) {

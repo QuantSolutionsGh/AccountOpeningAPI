@@ -4,6 +4,7 @@ package com.databankgroup.gh.accopeningapi.dao;
 import com.databankgroup.gh.accopeningapi.model.UserDocument;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public interface IUserDocumentDao {
 	
@@ -16,6 +17,8 @@ public void store(UserDocument userDocument);
 	
 	
 	public ArrayList<UserDocument>findAll();
+
+	public Set<UserDocument> findAll(Long id);
 
 	public ArrayList<UserDocument>fetchDocs(Long id, String docType);
 
