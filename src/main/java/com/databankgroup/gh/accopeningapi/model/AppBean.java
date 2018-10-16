@@ -207,7 +207,7 @@ public class AppBean implements Serializable {
 	@Column
 	private String ben3Surname;
 	@Column
-	@NotNull(message="Firstname of second beneficiary is required")
+	@NotNull(message="Beneficary 1 - firstname is required")
 	private String ben1Firstname;
 	@Column
 	private String ben2Firstname;
