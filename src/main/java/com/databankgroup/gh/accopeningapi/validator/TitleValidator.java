@@ -14,6 +14,8 @@ public class TitleValidator implements ConstraintValidator<TitleCheck, String> {
       validTitles.add("Mrs");
       validTitles.add("Dr");
       validTitles.add("Prof");
+      validTitles.add("");
+      validTitles.add(null);
    }
 
    public boolean isValid(String obj, ConstraintValidatorContext context) {

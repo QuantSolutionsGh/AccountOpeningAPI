@@ -1,9 +1,6 @@
 package com.databankgroup.gh.accopeningapi.model;
 
-import com.databankgroup.gh.accopeningapi.validator.AccountType;
-import com.databankgroup.gh.accopeningapi.validator.SecondApplicantDetailsCheck;
-import com.databankgroup.gh.accopeningapi.validator.TitleCheck;
-import org.hibernate.validator.constraints.ScriptAssert;
+import com.databankgroup.gh.accopeningapi.validator.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +13,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @SecondApplicantDetailsCheck.List({
 		@SecondApplicantDetailsCheck(first="accountType",second="title2",message="Title of second applicant is required"),
@@ -26,8 +24,17 @@ import java.util.Set;
 		@SecondApplicantDetailsCheck(first="accountType",second="dob2",message="Date Of Birth of second applicant is required"),
 		@SecondApplicantDetailsCheck(first="accountType",second="country2",message="Country of second applicant is required"),
 		@SecondApplicantDetailsCheck(first="accountType",second="state2",message="State of second applicant is required"),
+		@SecondApplicantDetailsCheck(first="accountType",second="city2",message="City of second applicant is required"),
+		@SecondApplicantDetailsCheck(first="accountType",second="postalAddress2",message="State of second applicant is required"),
+		@SecondApplicantDetailsCheck(first="accountType",second="idExpiryDate2",message="ID Expiry Date of second applicant is required"),
+		@SecondApplicantDetailsCheck(first="accountType",second="phoneNumber2",message="phone # of second applicant is required"),
+		@SecondApplicantDetailsCheck(first="accountType",second="maritalStatus2"),
+		@SecondApplicantDetailsCheck(first="accountType",second="nationality2"),
+		@SecondApplicantDetailsCheck(first="accountType",second="maritalStatus2"),
+		@SecondApplicantDetailsCheck(first="accountType",second="countryOfResidence2",message="Country's iso Alpha Code is required")
 
 })
+@BeneficiaryAllocationCheck
 public class AppBean implements Serializable {
 
 
@@ -59,7 +66,7 @@ public class AppBean implements Serializable {
 	@Column
 	@NotNull
 
-	@Size(min=2, message="last name should have at least 2 characters")
+	@Size(min=2, message="last name(first applicant) should have at least 2 characters")
 	private String lastName;
 
 	@Column
@@ -67,7 +74,7 @@ public class AppBean implements Serializable {
 
 	@Column
 	@NotNull
-	@Size(min=2, message="first name should have at least 2 characters")
+	@Size(min=2, message="first name(first applicant) should have at least 2 characters")
 	private String firstName;
 
 	@Column
@@ -75,7 +82,7 @@ public class AppBean implements Serializable {
 	private String middleName;
 
 	@Column
-	@NotNull
+	@NotNull(message="email (first applicant) should not be null")
 	@Email
 	private String email;
 
@@ -83,7 +90,7 @@ public class AppBean implements Serializable {
 	private String confirmEmail;
 
 	@Column
-	@NotNull(message="phone number should not be null")
+	@NotNull(message="phone number(first applicant) should not be null")
 	private String phoneNumber;
 
 	@Column
@@ -92,11 +99,13 @@ public class AppBean implements Serializable {
 	private String accountType;
 
 	@Column
+	@NotNull
 	@TitleCheck
 	private String title;
 
 	@Column
-
+	@NotNull
+	@GenderCheck(message="gender(first applicant) should be either Male or Female")
 	private String gender;
 
 
@@ -141,6 +150,8 @@ public class AppBean implements Serializable {
 	private String levelOfEducation;
 
 	@Column
+	@NotNull
+	@PhotoIDCheck
 	private String photoId;
 
 	@Column
@@ -150,6 +161,7 @@ public class AppBean implements Serializable {
 	@Column
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@NotNull
 	private Date idExpiryDate;
 
 
@@ -188,18 +200,21 @@ public class AppBean implements Serializable {
 	@Column
 	private String q5;
 	@Column
+	@NotNull(message = "Surname of first beneficiary is required")
 	private String ben1Surname;
 	@Column
 	private String ben2Surname;
 	@Column
 	private String ben3Surname;
 	@Column
+	@NotNull(message="Firstname of second beneficiary is required")
 	private String ben1Firstname;
 	@Column
 	private String ben2Firstname;
 	@Column
 	private String ben3Firstname;
 	@Column
+	@NotNull(message="Phone number of beneficiary is required")
 	private String ben1PhoneNo;
 	@Column
 	private String ben2PhoneNo;
@@ -276,9 +291,11 @@ public class AppBean implements Serializable {
 	private String accountType2;
 
 	@Column
+	@TitleCheck
 	private String title2;
 
 	@Column
+	@GenderCheck
 	private String gender2;
 
 
@@ -317,6 +334,7 @@ public class AppBean implements Serializable {
 	private String levelOfEducation2;
 
 	@Column
+	@PhotoIDCheck
 	private String photoId2;
 
 	@Column
@@ -388,9 +406,12 @@ public class AppBean implements Serializable {
 	private String accountNumber;
 
 	@Column
+	@NotNull
+	@MaritalStatusCheck
 	private String maritalStatus1;
 
 	@Column
+	@MaritalStatusCheck
 	private String maritalStatus2;
 
 	@Column
